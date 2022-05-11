@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "aws-backup-service-assume-role-policy" {
+data "aws_iam_policy_document" "aws_backup_service_assume_role_policy" {
   statement {
     sid     = "AssumeServiceRole"
     actions = ["sts:AssumeRole"]
@@ -10,52 +10,53 @@ data "aws_iam_policy_document" "aws-backup-service-assume-role-policy" {
   }
 }
 
-data "aws_iam_policy" "aws-backup-service-policy" {
+data "aws_iam_policy" "aws_backup_service_policy" {
   name = "AWSBackupServiceRolePolicyForBackup"
   arn  = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
 }
 
-data "aws_iam_policy" "aws-restore-service-policy" {
+
+data "aws_iam_policy" "aws_restore_service_policy" {
   name = "AWSBackupServiceRolePolicyForRestores"
   arn  = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
 }
 
-data "aws_iam_policy" "aws-backup-s3-service-policy" {
+data "aws_iam_policy" "aws_backup_s3_service_policy" {
   name = "AWSBackupServiceRolePolicyForS3Backup"
   arn  = "arn:aws:iam::aws:policy/AWSBackupServiceRolePolicyForS3Backup"
 }
 
-data "aws_iam_policy" "aws-restore-s3-service-policy" {
+data "aws_iam_policy" "aws_restore_s3_service_policy" {
   name = "AWSBackupServiceRolePolicyForS3Restore"
   arn  = "arn:aws:iam::aws:policy/AWSBackupServiceRolePolicyForS3Restore"
 }
 
-resource "aws_iam_role" "aws-backup-service-role" {
+resource "aws_iam_role" "aws_backup_service_role" {
   name               = "backup-role"
   description        = "Allows AWS Backup to access AWS resources on your behalf based on the permissions you define."
-  assume_role_policy = data.aws_iam_policy_document.aws-backup-service-assume-role-policy.json
+  assume_role_policy = data.aws_iam_policy_document.aws_backup_service_assume_role_policy.json
 }
 
-resource "aws_iam_role_policy" "backup-service-aws-backup-role-policy" {
+resource "aws_iam_role_policy" "backup_service_aws_backup_role_policy" {
   name   = "AWSBackupServiceRolePolicyForBackup"
-  policy = data.aws_iam_policy.aws-backup-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+  policy = data.aws_iam_policy.aws_backup_service_policy.policy
+  role   = aws_iam_role.aws_backup_service_role.name
 }
 
-resource "aws_iam_role_policy" "restore-service-aws-backup-role-policy" {
+resource "aws_iam_role_policy" "restore_service_aws_backup_role_policy" {
   name   = "AWSBackupServiceRolePolicyForRestores"
-  policy = data.aws_iam_policy.aws-restore-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+  policy = data.aws_iam_policy.aws_restore_service_policy.policy
+  role   = aws_iam_role.aws_backup_service_role.name
 }
 
-resource "aws_iam_role_policy" "backup-service-aws-backup-s3-role-policy" {
+resource "aws_iam_role_policy" "backup_service_aws_backup_s3_role_policy" {
   name   = "AWSBackupServiceRolePolicyForS3Backup"
-  policy = data.aws_iam_policy.aws-backup-s3-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+  policy = data.aws_iam_policy.aws_backup_s3_service_policy.policy
+  role   = aws_iam_role.aws_backup_service_role.name
 }
 
-resource "aws_iam_role_policy" "restore-service-aws-restore-s3-role-policy" {
+resource "aws_iam_role_policy" "restore_service_aws_restore_s3_role_policy" {
   name   = "AWSBackupServiceRolePolicyForS3Restore"
-  policy = data.aws_iam_policy.aws-restore-s3-service-policy.policy
-  role   = aws_iam_role.aws-backup-service-role.name
+  policy = data.aws_iam_policy.aws_restore_s3_service_policy.policy
+  role   = aws_iam_role.aws_backup_service_role.name
 }
