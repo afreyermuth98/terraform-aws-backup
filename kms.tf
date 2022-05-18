@@ -1,8 +1,7 @@
-
 data "aws_caller_identity" "current" {}
 
 locals {
-  account_id     = data.aws_caller_identity.current.account_id
+  account_id = data.aws_caller_identity.current.account_id
 }
 
 data "aws_iam_policy_document" "kms_key" {
@@ -19,7 +18,7 @@ data "aws_iam_policy_document" "kms_key" {
   }
 
   statement {
-    sid = "Allow use of the key"
+    sid    = "Allow use of the key"
     effect = "Allow"
     actions = [
       "kms:Encrypt",
@@ -38,6 +37,6 @@ data "aws_iam_policy_document" "kms_key" {
 }
 
 resource "aws_kms_key" "vault_kms_key" {
-  description             = "This key is used to encrypt backups in vault"
-  policy = data.aws_iam_policy_document.kms_key.json
+  description = "This key is used to encrypt backups in vault"
+  policy      = data.aws_iam_policy_document.kms_key.json
 }
