@@ -11,23 +11,19 @@ data "aws_iam_policy_document" "aws_backup_service_assume_role_policy" {
 }
 
 data "aws_iam_policy" "aws_backup_service_policy" {
-  name = "AWSBackupServiceRolePolicyForBackup"
   arn  = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForBackup"
 }
 
 
 data "aws_iam_policy" "aws_restore_service_policy" {
-  name = "AWSBackupServiceRolePolicyForRestores"
   arn  = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
 }
 
 data "aws_iam_policy" "aws_backup_s3_service_policy" {
-  name = "AWSBackupServiceRolePolicyForS3Backup"
   arn  = "arn:aws:iam::aws:policy/AWSBackupServiceRolePolicyForS3Backup"
 }
 
 data "aws_iam_policy" "aws_restore_s3_service_policy" {
-  name = "AWSBackupServiceRolePolicyForS3Restore"
   arn  = "arn:aws:iam::aws:policy/AWSBackupServiceRolePolicyForS3Restore"
 }
 
